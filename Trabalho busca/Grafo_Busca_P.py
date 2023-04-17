@@ -1,6 +1,6 @@
 import math
 
-with open ("C:\\entrada_grafo.txt", "r") as arquivo:
+with open ("D:\projetos\Grafos\Grafos_novo\Trabalho busca\entrada_grafo.txt", "r") as arquivo:
     texto = arquivo.read()
     x = texto.split()
     print(x)
