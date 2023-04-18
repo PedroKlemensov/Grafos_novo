@@ -1,34 +1,55 @@
-teste={1: None, 2: None, 3: None, 4: None, 5: None}
+from queue import Queue
 
-x=['1', '2', '2', '5', '5', '3', '4', '5', '1', '5']
-x=list(map(int, x))
-print(x)
+graph = {
+    5: [1, 2, 3, 4],
+    1: [2, 5],
+    2: [1, 5],
+    3: [5],
+    4: [5]
+}
 
-def conectar (chave, novo_valor):
-    if chave in teste:
-        if teste[chave] is not None and None in teste[chave]:
-            indice_none = teste[chave].index(None)
-            teste[chave][indice_none] = novo_valor
-        else:
-            if teste[chave] is None:
-                teste[chave] = [novo_valor]
-            else:
-                teste[chave].append(novo_valor)
-    else:
-        teste[chave] = [novo_valor]
+visited = []
+queue = []
 
 
+def bfs(visited, graph, node):
+    visited.append(node)
+    queue.append(node)
 
-print(teste)
-while True:
-    if len(x) == 0:
-        break
-    conectar(x[0], x[1])
-    conectar(x[1], x[0])
-    (x.pop(0))
-    (x.pop(0))
+    while queue:
+        m = queue.pop(0)
+        print(m, end=" ")
 
-print(teste)
-vetor=[teste(1)]
-print(vetor)
+        for neighbour in graph[m]:
+            if neighbour not in visited:
+                visited.append(neighbour)
+                queue.append(neighbour)
 
+
+def leastDistance(graph, source):
+    Q = Queue()
+    # create a dictionary with large distance(infinity) of each vertex from source
+    distance = {k: 9999999 for k in graph.keys()}
+    visited_vertices = set()
+    Q.put(source)
+    visited_vertices.update({source})
+    while not Q.empty():
+        vertex = Q.get()
+        if vertex == source:
+            distance[vertex] = 0
+        for u in graph[vertex]:
+            if u not in visited_vertices:
+                # update the distance
+                if distance[u] > distance[vertex] + 1:
+                    distance[u] = distance[vertex] + 1
+                Q.put(u)
+                visited_vertices.update({u})
+    return distance
+
+
+print("Distância:")
+print(leastDistance(graph, 2))
+print("--------------------------------")
+print("Width Search:")
+bfs(visited, graph, 2)
+print("--------------------------------")

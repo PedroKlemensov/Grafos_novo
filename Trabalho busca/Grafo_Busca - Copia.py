@@ -24,7 +24,7 @@ def bfs(visitado,grafo,node):
                     fila.append(visinho)
 
 print("bora ver se é real")
-bfs(visitado ,grafo_result , 3)
+bfs(visitado ,grafo_result , 2)
 
 
 
